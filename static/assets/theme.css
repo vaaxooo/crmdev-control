@@ -1,0 +1,31 @@
+.header {
+    background: rgb(34, 39, 46);
+    color: #fafafa;
+    padding: 10px 0;
+}
+
+.Header-link span {
+    font-size: 20px;
+    text-decoration: none;
+    color: #fff;
+}
+
+a.Header-link.f4.d-flex.flex-items-center {
+    text-decoration: none;
+}
+
+.Header-item.Header-item--full {
+    margin: 4px 20px;
+}
+
+span.other-block {
+    margin: 0 50px;
+}
+
+span.other-block.block-icon {
+    margin: 10px 0;
+}
+
+input.form-check-input.flex-shrink-0 {
+    margin: 15px 30px;
+}
