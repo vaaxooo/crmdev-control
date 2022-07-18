@@ -18,12 +18,14 @@ const { MySQLi } = require('./src/modules/MySQLi');
 
 const { Office } = require('./src/routes/Office');
 const { Transaction } = require('./src/routes/Transaction');
+const { Notification } = require('./src/routes/Notification');
 
 /**
  * USED ROUTES
  */
 router.use('/offices', Office.routes());
 router.use('/transactions', Transaction.routes());
+router.use('/notifications', Notification.routes());
 
 app.listen(config.APP_PORT, async() => {
     await MySQLi.sync();

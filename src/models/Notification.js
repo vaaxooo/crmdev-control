@@ -1,34 +1,30 @@
 const { Model, DataTypes } = require('sequelize');
 const { MySQLi } = require('../modules/MySQLi');
 
-class Office extends Model {}
+class Notification extends Model {}
 
-Office.init({
+Notification.init({
     id: {
         type: DataTypes.BIGINT,
         autoIncrement: true,
         primaryKey: true
     },
-    name: {
+    title: {
         type: DataTypes.STRING,
-        allowNull: true
+        allowNull: false
     },
-    address: {
-        type: DataTypes.STRING,
-        allowNull: true
+    message: {
+        type: DataTypes.BLOB,
+        allowNull: false
     },
     domain: {
         type: DataTypes.STRING,
-        allowNull: true
+        allowNull: false
     },
-    expires_in: {
-        type: DataTypes.DATE,
-        allowNull: true
-    }
 }, {
     sequelize: MySQLi,
-    modelName: 'offices',
+    modelName: 'notifications',
     freezeTableName: true
 });
 
-module.exports.Office = Office;
+module.exports.Notification = Notification;
