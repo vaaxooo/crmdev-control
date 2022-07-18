@@ -15,9 +15,17 @@
 
 			<div class="col-md-6 mt-3">
 				<div class="form-group">
-					<label for="address">IP-адрес офиса</label>
+					<label for="address">IP-адрес сервера</label>
 					<input type="text" class="form-control" id="address" v-model="office.address" :class="{'is-invalid': errors.address}">
-					<span class="text-danger" v-if="errors.address">Не указан IP-адрес офиса</span>
+					<span class="text-danger" v-if="errors.address">Не указан IP-адрес сервера</span>
+				</div>
+			</div>
+
+			<div class="col-md-6 mt-3">
+				<div class="form-group">
+					<label for="domain">Домен офиса</label>
+					<input type="text" class="form-control" id="domain" v-model="office.domain" :class="{'is-invalid': errors.domain}">
+					<span class="text-danger" v-if="errors.address">Не указан домен офиса</span>
 				</div>
 			</div>
 
@@ -53,6 +61,7 @@ export default {
 			office: {
 				name: '',
 				address: '',
+				domain: '',
 				expires_in: new Date((new Date()).setMonth((new Date()).getMonth() + 1))
 			},
 
@@ -69,12 +78,14 @@ export default {
 				const response = (await this.$axios.post('/offices', {
 					name: this.office.name,
 					address: this.office.address,
+					domain: this.office.domain,
 					expires_in: new Date(this.office.expires_in)
 				})).data;
 				if(response.status) {
 					this.$toast.success(response.message);
 					this.office.name = ''
 					this.office.address = ''
+					this.office.domain = ''
 					this.office.expires_in = ''
 				} else {
 					this.$toast.error(response.message);

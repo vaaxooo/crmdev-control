@@ -10,7 +10,25 @@
 				</nuxt-link>
 			</div>
 
-			<div class="actions mt-5" v-if="checkedOffices.length > 0">
+			<div class="tab-navigation d-flex" v-if="checkedOffices.length > 0">
+				<div class="tab-navigation-item">
+					<button type="button" class="btn btn-light" :class="{'active': current_tabcontent === 'expires'}" @click="changeTab('expires')">
+						Оплата
+					</button>
+				</div>
+				<div class="tab-navigation-item">
+					<button type="button" class="btn btn-light" :class="{'active': current_tabcontent === 'notifications'}" @click="changeTab('notifications')">
+						Уведомления
+					</button>
+				</div>
+				<div class="tab-navigation-item">
+					<button type="button" class="btn btn-light" :class="{'active': current_tabcontent === 'deleting'}" @click="changeTab('deleting')">
+						Удаление офисов
+					</button>
+				</div>
+			</div>
+
+			<div class="actions mt-2" v-if="current_tabcontent === 'expires' && checkedOffices.length > 0">
 				<div class="form-group row">
 					<div class="col-md-3">
 						<select class="form-control" placeholder="Выберите период" v-model="expires_in">
@@ -25,7 +43,21 @@
 							Продлить офисы
 						</button>
 					</div>
+				</div>
+			</div>
 
+			<div class="actions mt-2" v-if="current_tabcontent === 'notifications' && checkedOffices.length > 0">
+				<div class="form-group row">
+					<div class="col-md-4">
+						<button class="btn btn-success" @click="notification_modal_visible = true">
+							Отправить офисам уведомление
+						</button>
+					</div>
+				</div>
+			</div>
+
+			<div class="actions mt-2" v-if="current_tabcontent === 'deleting' && checkedOffices.length > 0">
+				<div class="form-group row">
 					<div class="col-md-4">
 						<button class="btn btn-danger" @click="deleteOffices">
 							Удалить выбранные офисы
@@ -42,6 +74,10 @@
 				<h5 class="text-muted">Список офисов пуст..</h5>
 			</div>
 		</section>
+
+
+		<widgets-notification-modal v-if="notification_modal_visible" />
+
   	</div>
 </template>
 
@@ -53,19 +89,30 @@ export default {
 			offices: [],
 			checkedOffices: [],
 
-			expires_in: 1
+			expires_in: 1,
+			current_tabcontent: 'expires',
+
+			notification_modal_visible: false,
 		}
 	},
   	created() {
+		this.$nuxt.$off('sendNotification')
+		this.$nuxt.$on('sendNotification', (data) => {
+			this.sendNotification(data)
+		})
+
+		this.$nuxt.$off('closeModal')
+		this.$nuxt.$on('closeModal', () => {
+			this.notification_modal_visible = false
+		})
+
 		this.$nuxt.$off('checkedOffices')
 		this.$nuxt.$on('checkedOffices', data => {
-
 			if (data.target.checked) {
 				this.checkedOffices.push(data.target.dataset.officeId)
 			} else {
 				this.checkedOffices.splice(this.checkedOffices.indexOf(data.target.dataset.officeId), 1)
 			}
-
 		})
 	},
 	async fetch(){
@@ -76,6 +123,18 @@ export default {
 			const response = (await this.$axios.get('/offices/all')).data;
 			if(response.status) {
 				this.offices = response.data;
+			}
+		},
+
+		async sendNotification(data) {
+			const response = (await this.$axios.post('/notifications/create', {
+				offices: this.checkedOffices,
+				title: data.title,
+				message: data.message,
+			})).data;
+			if(response.status) {
+				//this.notification_modal_visible = false
+				this.$toast.success('Уведомление отправлено по выбраным офисам')
 			}
 		},
 
@@ -102,6 +161,10 @@ export default {
 			} else {
 				this.$toast.error(response.message)
 			}
+		},
+
+		changeTab(tabcontent) {
+			this.current_tabcontent = tabcontent;
 		}
   	}
 

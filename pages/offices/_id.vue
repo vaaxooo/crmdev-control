@@ -15,9 +15,17 @@
 
 			<div class="col-md-6 mt-3">
 				<div class="form-group">
-					<label for="address">IP-адрес офиса</label>
+					<label for="address">IP-адрес сервера</label>
 					<input type="text" class="form-control" id="address" v-model="office.address" :class="{'is-invalid': errors.address}">
-					<span class="text-danger" v-if="errors.address">Не указан IP-адрес офиса</span>
+					<span class="text-danger" v-if="errors.address">Не указан IP-адрес сервера</span>
+				</div>
+			</div>
+
+			<div class="col-md-6 mt-3">
+				<div class="form-group">
+					<label for="domain">Домен офиса</label>
+					<input type="text" class="form-control" id="domain" v-model="office.domain" :class="{'is-invalid': errors.domain}">
+					<span class="text-danger" v-if="errors.address">Не указан домен офиса</span>
 				</div>
 			</div>
 
@@ -79,6 +87,7 @@ export default {
 			office: {
 				name: '',
 				address: '',
+				domain: '',
 				expires_in: ''
 			},
 
@@ -115,6 +124,7 @@ export default {
 				const response = (await this.$axios.put('/offices/' + this.$route.params.id, {
 					name: this.office.name,
 					address: this.office.address,
+					domain: this.office.domain,
 					expires_in: this.office.expires_in
 				})).data;
 				if(response.status) {
