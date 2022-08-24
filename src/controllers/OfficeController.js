@@ -60,6 +60,12 @@ module.exports = {
     deleteOffices: async(ctx) => {
         const offices = await OfficeService.deleteOffices(ctx.request.body);
         ctx.body = offices;
+    },
+
+    /* This is a function that is called when the route is called. */
+    checkProviderAddress: async(ctx) => {
+        const office = await OfficeService.checkProviderAddress(ctx.request.body);
+        ctx.body = office;
     }
 
 }

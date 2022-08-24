@@ -11,7 +11,8 @@ const {
     updateOfficeExpiresIn,
     checkOfficeExpiration,
     updateExpiresDateOffices,
-    deleteOffices
+    deleteOffices,
+    checkProviderAddress,
 } = require('../controllers/OfficeController');
 
 const { getTransactions } = require('../controllers/TransactionController');
@@ -29,6 +30,7 @@ router.post('/update-expires-date', updateExpiresDateOffices);
 router.post('/delete', deleteOffices);
 
 router.get('/check/:address', checkOfficeExpiration);
+router.post('/check-provider-address', checkProviderAddress);
 
 router.get('/:id/transactions', getTransactions);
 

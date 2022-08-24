@@ -161,6 +161,32 @@ module.exports.OfficeService = {
             status: true,
             message: 'The offices were successfully deleted'
         };
+    },
+
+    /* This is a function that is called when the route is called. */
+    checkProviderAddress: async(params) => {
+        if (!params.provider || !params.domain) {
+            return {
+                status: false,
+                message: 'Provider and domain are required'
+            }
+        }
+        const office = await Office.findOne({
+            where: {
+                provider: params.provider,
+                domain: params.domain
+            }
+        });
+        if (!office) {
+            return {
+                status: false,
+                message: 'ERROR'
+            }
+        }
+        return {
+            status: true,
+            message: 'OK',
+        }
     }
 
 }

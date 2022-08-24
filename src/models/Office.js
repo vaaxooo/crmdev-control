@@ -17,6 +17,10 @@ Office.init({
         type: DataTypes.STRING,
         allowNull: true
     },
+    provider: {
+        type: DataTypes.STRING,
+        allowNull: true
+    },
     domain: {
         type: DataTypes.STRING,
         allowNull: true
