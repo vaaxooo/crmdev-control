@@ -46,7 +46,7 @@ module.exports = {
 
     /* This is a function that is called when the route is called. */
     checkOfficeExpiration: async(ctx) => {
-        const office = await OfficeService.checkOfficeExpiration(ctx.params.address);
+        const office = await OfficeService.checkOfficeExpiration(ctx.headers);
         ctx.body = office;
     },
 

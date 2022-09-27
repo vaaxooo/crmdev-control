@@ -99,10 +99,10 @@ module.exports.OfficeService = {
     },
 
     /* This is a function that is called when the route is called. */
-    checkOfficeExpiration: async(address) => {
+    checkOfficeExpiration: async(headers) => {
         const office = await Office.findOne({
             where: {
-                address: address
+                domain: headers.host
             }
         });
         if (!office) {
