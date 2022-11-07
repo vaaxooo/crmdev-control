@@ -12,6 +12,11 @@
 				<small class="d-block text-muted">Статус: <b class="text-sucess">{{ checkStatus(data.expires_in) ? "Активен" : "Не оплачен" }}</b></small>
 			</span>
 
+			<span class="other-block">
+				<b class="text-success" v-if="data.working">Офис работает</b>
+				<b class="text-danger" v-else>Офис не работает</b>
+			</span>
+
 			<span class="other-block block-icon">
 				<nuxt-link :to="'/offices/' + data.id" class="btn-link">
 					<i class="material-icons">edit</i>
