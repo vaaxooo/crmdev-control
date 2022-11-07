@@ -102,7 +102,7 @@ module.exports.OfficeService = {
     checkOfficeExpiration: async(headers) => {
         const office = await Office.findOne({
             where: {
-                domain: headers.host
+                domain: headers['x-host-name']
             }
         });
         if (!office) {
@@ -187,6 +187,34 @@ module.exports.OfficeService = {
             status: true,
             message: 'OK',
         }
+    },
+
+    /* This is a function that is called when the route is called. */
+    updateStatusWorking: async(params, headers) => {
+        const host = headers.host;
+        const office = await Office.findOne({
+            where: {
+                domain: host
+            }
+        });
+
+        if (!office) {
+            return {
+                status: false,
+                message: 'Office not found'
+            };
+        }
+        await Office.update({
+            working: params.status
+        }, {
+            where: {
+                domain: host
+            }
+        });
+        return {
+            status: true,
+            message: 'The office was successfully updated'
+        };
     }
 
 }

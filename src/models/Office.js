@@ -28,6 +28,10 @@ Office.init({
     expires_in: {
         type: DataTypes.DATE,
         allowNull: true
+    },
+    working: {
+        type: DataTypes.BOOLEAN,
+        allowNull: true
     }
 }, {
     sequelize: MySQLi,

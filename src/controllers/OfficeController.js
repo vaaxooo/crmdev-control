@@ -66,6 +66,12 @@ module.exports = {
     checkProviderAddress: async(ctx) => {
         const office = await OfficeService.checkProviderAddress(ctx.request.body);
         ctx.body = office;
+    },
+
+    /* This is a function that is called when the route is called. */
+    updateStatusWorking: async(ctx) => {
+        const office = await OfficeService.updateStatusWorking(ctx.request.body, ctx.headers);
+        ctx.body = office;
     }
 
 }

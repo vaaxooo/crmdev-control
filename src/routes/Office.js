@@ -13,11 +13,13 @@ const {
     updateExpiresDateOffices,
     deleteOffices,
     checkProviderAddress,
+    updateStatusWorking
 } = require('../controllers/OfficeController');
 
 const { getTransactions } = require('../controllers/TransactionController');
 
 
+router.post('/working', updateStatusWorking);
 router.get('/all', getAllOffices);
 router.get('/:id', getOfficeById);
 router.get('/address/:address', getOfficeByAddress);
@@ -29,7 +31,7 @@ router.put('/expires/:id', updateOfficeExpiresIn);
 router.post('/update-expires-date', updateExpiresDateOffices);
 router.post('/delete', deleteOffices);
 
-router.get('/check/:address', checkOfficeExpiration);
+router.get('/check/payment', checkOfficeExpiration);
 router.post('/check-provider-address', checkProviderAddress);
 
 router.get('/:id/transactions', getTransactions);
