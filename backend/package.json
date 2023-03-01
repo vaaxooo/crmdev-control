@@ -1,0 +1,15 @@
+{
+    "name": "control-crm",
+    "version": "1.0.0",
+    "description": "",
+    "main": "app.js",
+    "dependencies": {
+        "@koa/cors": "^3.3.0",
+        "dotenv-flow": "^3.2.0",
+        "koa": "^2.13.4",
+        "koa-bodyparser": "^4.3.0",
+        "koa-router": "^11.0.1",
+        "mysql2": "^2.3.3",
+        "sequelize": "^6.21.2"
+    }
+}
