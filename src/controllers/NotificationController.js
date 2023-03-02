@@ -4,7 +4,7 @@ module.exports = {
 
     /* A function that is called when a request is made to the server. */
     async getNotificationsByDomain(ctx) {
-        const notifications = NotificationService.getNotificationsByDomain(ctx.params.domain);
+        const notifications = await NotificationService.getNotificationsByDomain(ctx.params.domain);
         ctx.body = notifications;
     },
 

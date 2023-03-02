@@ -10,6 +10,7 @@ module.exports.NotificationService = {
                 domain: domain
             }
         });
+
         return {
             status: true,
             data: notifications

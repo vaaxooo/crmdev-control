@@ -14,7 +14,7 @@ Notification.init({
         allowNull: false
     },
     message: {
-        type: DataTypes.BLOB,
+        type: DataTypes.TEXT('long'),
         allowNull: false
     },
     domain: {
